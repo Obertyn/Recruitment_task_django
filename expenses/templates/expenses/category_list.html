@@ -7,20 +7,28 @@
 	<thead>
 		<tr>
 			<th>name</th>
-			<th>actions</th>
+			<th colspan="2">actions</th>
+			<th>number of expenses</th>
 		</tr>
 	</thead>
 	<tbody>
-		{% for obj in object_list %}
+		{% for obj in data_for_category_list %}
 		<tr>
 			<td>
-				{{obj.name}}
+				{{obj.0}}
 			</td>
 			<td>
-				<a href="{% url 'expenses:category-delete' obj.id %}">delete</a>
+				<a href="{% url 'expenses:category-delete' obj.2 %}">delete</a>
+			</td>
+			<td>
+				<a href="{% url 'expenses:category-update' obj.2 %}">edit</a>
+			</td>
+			<td style="text-align:center">
+				<a>{{obj.1}}</a>
 			</td>
 		</tr>
 		{% endfor %}
 	</tbody>
 </table>
 {% endblock %}
+

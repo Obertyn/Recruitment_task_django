@@ -5,9 +5,21 @@
 <a href="{% url 'expenses:expense-create' %}">add</a>
 
 <form method="get" action="">
-  {{form.as_p}}
-  <button type="submit">search</button>
+	{{form.as_p}}
+	Starting date:
+	<input id="start_date" type="text" name="start_date" value= "{{ start_date }}"><p></p>
+	End date:
+	<input id="end_date" type="text" name="end_date" value= "{{ end_date }}"><p></p>
+	<select name="select" id="select">
+  		<option value="dont_sort">Don't sort</option>
+  		<option value="sort_category_a">Sorting by category ascending</option>
+  		<option value="sort_category_d">Sorting by category descending</option>
+  		<option value="sort_date_a">Sorting by date ascending</option>
+  		<option value="sort_date_d">Sorting by date descending</option>
+	</select>
+	<button type="submit">search</button>
 </form>
+
 <br>
 <table border="1">
 	<caption>Expenses</caption>
@@ -56,4 +68,40 @@
 	{% endfor %}
   </tr>
 </table>
+
+<hr>
+<table border="1">
+  <caption>Summary</caption>
+  <tr>
+	<tr>
+		<td>{{summary_all}}</td>
+	</tr>
+  </tr>
+</table>
+
+<hr>
+<table border="1" style="float: left;margin-right:20px">
+  <caption>Summary per month</caption>
+  <tr>
+    {% for category, total in summary_per_month %}
+	<tr>
+		<td>{{category}}:</td>
+		<td>{{total|floatformat:2}}</td>
+	</tr>
+	{% endfor %}
+  </tr>
+</table>
+
+<table border="1" style="float: left">
+  <caption>Summary per year</caption>
+  <tr>
+    {% for category, total in summary_per_year.items %}
+	<tr>
+		<td>{{category}}:</td>
+		<td>{{total|floatformat:2}}</td>
+	</tr>
+	{% endfor %}
+  </tr>
+</table>
+
 {% endblock %}
